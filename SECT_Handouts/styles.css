@@ -10,14 +10,24 @@ ol {
   /* font-weight: normal; */
 }
 
+ul {
+  margin-left: 10px;
+  list-style-type: disc;   /* NOT WORKING */
+
+}
+
+ul > li {
+  /* margin-left: 10px; */
+}
+
 li {
-  display: block;
   /* color: #666666; */
-  margin: 5px 0;
+  margin: 10px;
   /* font-weight: bold; */
 }
 
 ol > li {
+  display: block;
   /* line-height: 150%; */
   margin-top: 10px;
 }
@@ -27,17 +37,17 @@ li > ol > li {
   margin-top: 5px;
 }
 
-ol > li:before {
+ol > li::before {
   content: counters(item, ".") " ";
   counter-increment: item;
 }
 
-ul.a {
-  list-style-type: disc;
+ul.circle {
+  list-style-type: circle;
 }
 
-ul.b {
-  list-style-type: square !important;
+ul.square {
+  list-style-type: square;
 }
 
 a {
@@ -47,9 +57,6 @@ a {
 
 a, a:visited {
   color:#545563;
-  /* color:#303030; */
-  /* color:#1f8cc6; */
-  /* color:#3169d1; */
 }
 
 a:hover {
