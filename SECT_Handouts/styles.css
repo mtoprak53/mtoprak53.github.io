@@ -5,6 +5,10 @@
   background-color: #ddd;
 }
 
+ol#main-list {
+  counter-reset: item -1;
+}
+
 ol {
   counter-reset: item;
   /* font-weight: normal; */
@@ -59,7 +63,7 @@ a, a:visited {
   color:#545563;
 }
 
-a:hover {
+a:hover, a > i:hover {
   background-color: antiquewhite;
 }
 
