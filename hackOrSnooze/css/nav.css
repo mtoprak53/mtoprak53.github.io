@@ -1,0 +1,39 @@
+/* Navigation bar */
+
+nav {
+  display: flex;
+  background-color: #ff6600;
+  align-items: center;
+  padding: 5px 20px;
+  border-radius: 3px 3px 0 0;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 0.85rem;
+  margin: 0 3px;
+}
+
+.nav-buttons {
+  /* border-left: 2px solid black; */
+  font-weight: normal;
+  margin: 0 3px;
+}
+
+/* .nav-button {
+  border-left: 2px solid black;
+} */
+
+/* 
+#nav-favs, #nav-submit {
+  border-left: 2px solid black;
+  font-weight: normal;
+} */
+
+.nav-right {
+  margin-left: auto;
+  text-align: right;
+}
