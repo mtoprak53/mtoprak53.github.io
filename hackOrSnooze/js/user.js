@@ -110,7 +110,11 @@ function saveUserCredentialsInLocalStorage() {
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
-  $allStoriesList.show();
+  /** TO SHOW THE STAR BUTTONS
+   *  putStoriesOnPage() HAS TO BE CALLED
+   */  
+  // $allStoriesList.show();
+  putStoriesOnPage();
 
   $loginForm.hide();
   $signupForm.hide();

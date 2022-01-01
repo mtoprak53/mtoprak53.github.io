@@ -24,8 +24,6 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-
     let slashCount = 0;
     let hostname= '';
     for (let char of this.url) {
@@ -85,9 +83,7 @@ class StoryList {
    */
 
   static async addStory(user, newStory) {
-    // UNIMPLEMENTED: complete this function!
-
-    const sentStory = await axios({
+    const response = await axios({
       url: `${BASE_URL}/stories`,
       method: "POST",
       data: {
@@ -96,9 +92,8 @@ class StoryList {
       },
     });
 
-    const { updatedAt, ...responseStory } = sentStory.data.story;
-    const newStory_ = new Story(responseStory);
-    return newStory_;
+    const { updatedAt, ...storyObject } = response.data.story;
+    return new Story(storyObject);
   }
 }
 
@@ -255,6 +250,9 @@ class User {
     );
   }
 
+  /**
+   * 
+   */
   async updateStories() {   
     
     // GET THE UPDATED USER INSTANCE FROM API
