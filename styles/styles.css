@@ -52,6 +52,12 @@ a {
   font-family: inherit;
 }
 
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: .5;
+}
+
 header {
   min-height: 100vh;
   color: var(--color-white);
