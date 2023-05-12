@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(242, 242, 242);
+}
+*{
+    font-size: 1.5rem;
+}
+#calc{
+    margin-top: 2em;
+    background-color: grey;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 0.4em;
+    width: 12rem;
+}
+#screen{
+    text-align: right;
+    background-color: black;
+    color: white;
+    padding: 0 0.2em;
+    border-radius: 6px;
+    margin-bottom: 0.2em;
+}
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.1em;
+}
+#buttons button {
+    background-color: lightgrey;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+#buttons .operator:focus{
+    background-color: orange;
+}
+#buttons #C {
+    color: red;
+    background-color: #AAA;
+}
