@@ -58,7 +58,8 @@ body {
 
 #score-div,
 #lines-div, 
-#keys {
+#keys-div, 
+#next-div {
   color: white;
   font-size: 23px;
   font-weight: bold;
@@ -67,6 +68,7 @@ body {
   margin: 15 0;
 }
 
-#keys {
+#keys-div, 
+#next-div {
   font-size: 16px;
 }

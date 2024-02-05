@@ -103,13 +103,13 @@ window.onload = () => {
     FIELD = Array.from({ length: FIELD_HEIGHT }),
     MIN_VALID_ROW = 4, 
     TETROMINOES = [
-      new Tetromino([0, 0, 0, 0], [0, 1, 2, 3]),
-      new Tetromino([0, 0, 1, 1], [0, 1, 0, 1]),
-      new Tetromino([0, 1, 1, 1], [0, 0, 1, 2]),
-      new Tetromino([0, 0, 0, 1], [0, 1, 2, 0]),
-      new Tetromino([0, 1, 1, 2], [0, 0, 1, 1]),
-      new Tetromino([0, 1, 1, 2], [1, 1, 0, 1]),
-      new Tetromino([0, 1, 1, 2], [1, 1, 0, 0])
+      new Tetromino([0, 0, 0, 0], [0, 1, 2, 3]),  // stick
+      new Tetromino([0, 0, 1, 1], [0, 1, 0, 1]),  // square
+      new Tetromino([0, 1, 1, 1], [0, 0, 1, 2]),  // L-1
+      new Tetromino([0, 0, 0, 1], [0, 1, 2, 0]),  // L-2
+      new Tetromino([0, 1, 1, 2], [0, 0, 1, 1]),  // S-1
+      new Tetromino([0, 1, 1, 2], [1, 1, 0, 1]),  // T
+      new Tetromino([0, 1, 1, 2], [1, 1, 0, 0])   // S-2
     ];
   
   let tetromino = null,
@@ -119,7 +119,7 @@ window.onload = () => {
     isFreezed;
   
 
-  /** GAME FLOW */
+  /** SETUP */
   (function setup() {
     canvas.style.top = Tetromino.BLOCK_SIZE;
     canvas.style.left = Tetromino.BLOCK_SIZE;
@@ -199,7 +199,7 @@ window.onload = () => {
       } else 
           tetromino.update(i => ++tetromino.y[i]);
     }
-    // No tetromino failing
+    // No tetromino falling
     else {
 
       scoreLbl.innerText = score;
