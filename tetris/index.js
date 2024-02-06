@@ -6,7 +6,9 @@ window.onload = () => {
       scoreLbl = document.getElementById("score"),
       linesLbl = document.getElementById("lines"),
       canvas = document.getElementById("game-canvas"),
+      nextCanvas = document.getElementById("next-canvas"),
       ctx = canvas.getContext("2d");
+      ctxNext = nextCanvas.getContext("2d");
 
   /** TETROMINO CLASS */
   class Tetromino {
@@ -58,6 +60,24 @@ window.onload = () => {
       }
     }
 
+    /** METHOD-2B */
+    drawNext() {
+      if (!this.img.complete) {
+        this.img.onload = () => this.drawNext();
+        return;
+      }
+      // Print the next tetromine
+      for (let i=0; i < this.length; ++i) {
+        ctxNext.drawImage(
+          this.img,
+          this.x[i] * Tetromino.BLOCK_SIZE,
+          this.y[i] * Tetromino.BLOCK_SIZE,
+          Tetromino.BLOCK_SIZE,
+          Tetromino.BLOCK_SIZE
+        );
+      }
+    }
+
     /** METHOD-3 */
     collides(checkFunc) {
       for (let i=0; i < this.length; ++i) {
@@ -97,6 +117,7 @@ window.onload = () => {
     }
   }
 
+  /** GLOBAL CONSTANTS */
   const 
     FIELD_WIDTH = 10,
     FIELD_HEIGHT = 20,
@@ -112,12 +133,13 @@ window.onload = () => {
       new Tetromino([0, 1, 1, 2], [1, 1, 0, 0])   // S-2
     ];
   
+  /** GLOBAL VARIABLES */
   let tetromino = null,
+    nextTetromino = null,
     delay, 
     score, 
     lines,
-    isFreezed;
-  
+    isFreezed;  
 
   /** SETUP */
   (function setup() {
@@ -142,6 +164,7 @@ window.onload = () => {
 
   /** RESET */
   function reset() {
+
     // Make false all blocks
     FIELD.forEach((_, y) => FIELD[y] = Array.from({ length: FIELD_WIDTH }).map(_ => false));
 
@@ -160,6 +183,7 @@ window.onload = () => {
       // Collision?
       if (tetromino.collides(i => ({ x: tetromino.x[i], y: tetromino.y[i] + 1 }))) {
         tetromino.merge();
+
         // Prepare for new tetromino
         tetromino = null;
 
@@ -176,6 +200,7 @@ window.onload = () => {
           }
 
         if (completedRows) {
+
           // Print the table again
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           for (let y = MIN_VALID_ROW; y < FIELD_HEIGHT; ++y) {
@@ -185,10 +210,10 @@ window.onload = () => {
               }
             }
           }
-
           score += [40, 100, 300, 1200][completedRows - 1];
           lines += completedRows;
         } else {
+
           // Check if the player lost
           if (FIELD[MIN_VALID_ROW - 1].some(block => block !== false)) {
             alert("You have lost!");
@@ -199,6 +224,7 @@ window.onload = () => {
       } else 
           tetromino.update(i => ++tetromino.y[i]);
     }
+
     // No tetromino falling
     else {
 
@@ -206,19 +232,31 @@ window.onload = () => {
       linesLbl.innerText = lines;
 
       // Create random tetromino
-      let randomNum = Math.floor(Math.random() * (TETROMINOES.length - 1));
-      tetromino = ( ({x, y}, color) => 
+      if (nextTetromino) {
+        tetromino = nextTetromino;
+      } else {
+        let randomNum = Math.floor(Math.random() * (TETROMINOES.length));
+        tetromino = ( ({x, y}, color) => 
+          new Tetromino([...x], [...y], color)
+        )(
+          TETROMINOES[randomNum], randomNum
+        );  
+        tetromino.draw();
+      }
+      let randomNum = Math.floor(Math.random() * (TETROMINOES.length));
+      nextTetromino = ( ({x, y}, color) => 
         new Tetromino([...x], [...y], color)
       )(
         TETROMINOES[randomNum], randomNum
       );
 
-      tetromino.draw();
+      console.log(nextTetromino);
+      ctxNext.clearRect(0, 0, Tetromino.BLOCK_SIZE * 8, Tetromino.BLOCK_SIZE * 5);
+      nextTetromino.drawNext();
 
     }
-
-    // console.log("isFreezed: ", isFreezed);
-
+    
+    // Pause the game
     if (isFreezed) {
       alert("Game paused!");
       isFreezed = !isFreezed;
@@ -227,7 +265,7 @@ window.onload = () => {
     setTimeout(draw, delay);
   }
 
-  /** MOVES */ 
+  /** KEYBOARD CONTROLS */ 
   window.onkeydown = event => {
     switch (event.key) {
       case "ArrowLeft":
@@ -254,10 +292,5 @@ window.onload = () => {
     if (event.key === "ArrowDown")
       delay = Tetromino.DELAY;
   }
-
-  // window.onkeyup = event => {
-  //   if (event.key === "ArrowDown")
-  //     delay = Tetromino.DELAY;
-  // }
 
 }
